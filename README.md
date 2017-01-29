@@ -123,21 +123,28 @@ Execute image normalization within the neural net. [-0.5, 0.5]
 ## Training
 To train the model I chose the following parameters:
 
-1. Learning Rate: 0.001
-2. Epochs: 10
-3. Loss Function: Mean square error - since our ouput is a single numeric value
-4. Batch size: 128
+1. **Learning Rate**: 0.001
+2. **Epochs**: 10
+3. **Loss Function**: Mean square error - since our ouput is a single numeric value
+4. **Batch size**: 128
 
 I refrained from using python generator since the amount of data required to train the network successfuly was small and I did not require data augmentation. I am aware of it's usefulness in memory constraint and real time applications.
 
-I was able to train the network on Laptop's CPU. Each training epoch took approximately 15 seconds for a **total training time of ~2.5 minutes**. Training the NVidia network for 10 epochs took approximately 25 minutes.
+I was able to train the network on a modest CPU. Each training epoch took approximately 15 seconds for a **total training time of ~2.5 minutes**. Training the NVidia network for 10 epochs took approximately 25 minutes.
 
 ## Results
-videos coming soon!
+
+### Track 1
+<a href="https://www.youtube.com/embed/hQzMg0Tqdhg" target="_blank"><img src="http://img.youtube.com/vi/hQzMg0Tqdhg/0.jpg" 
+alt="Track 1" width="480" height="360" border="10" /></a>
+
+### Track 2
+<a href="https://www.youtube.com/embed/d7NyIFlxlAc" target="_blank"><img src="http://img.youtube.com/vi/d7NyIFlxlAc/0.jpg" 
+alt="Track 2" width="480" height="360" border="10" /></a>
 
 ## How to run
 
 1. Install [carnd-term1](https://github.com/udacity/CarND-Term1-Starter-Kit) conda environment
-2. Run `model.py` to train the model and produce `model.h5` and `model.json`
-3. Run `drive.py model.json` to load the neural net model and communicate with the simulator
+2. Run `pyhton model.py` to train the model and produce `model.h5` and `model.json`
+3. Run `python drive.py model.json` to load the neural net model and communicate with the simulator
 4. Run the simulator in Autonomous Mode!
