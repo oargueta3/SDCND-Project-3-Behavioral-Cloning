@@ -60,9 +60,10 @@ To preprocess the images:
 4. **Resize Image to 64x64**: Since the simulator is much simpler than the real world, reducing the size of the image won't result on loss of important information and will also be less work for the neural net.
 
 Sample preprocessed images are shown below.
+
 ![sample](readme_images/sample_1.png)
 
-** Note**: Normalization will be done within the neural net!
+**Note**: Normalization will be done within the neural net!
 
 **Note on Augmentation**: Before augmenting the images I decided to train and test with real data only. I determined that the model did not need any augmentation to succesfully drive in the simulator. I considerd flipping the images along the vertical axis to generate twice the data, but did not see any significant gain in performance both in validation loss and actual driving simulations.
     
@@ -85,20 +86,20 @@ Accepts a 64x64x1 image as input. S-Channel of HSV color space
 ----
 
 #### Normalization
-Execute image normalization within the neural net.
+Execute image normalization within the neural net. [-0.5, 0.5]
 
 ----
 
 **Layer 1: Convolution.** Filter Size: 3x3. Filter Depth: 6. Output shape should be 62x62x6.
 
-** Elu Activation.** 
+**ELU Activation.** 
 
 **4x4 Max-Pooling.** The output shape should be 15x15x6.
 
 ----
 **Layer 2: Convolution.** Filter Size: 3x3. Filter Depth: 16. Output shape should be 13x13x16.
 
-** Elu Activation.** 
+**ELU Activation.** 
 
 **4x4 Max-Pooling.** The output shape should be 3x3x16.
 
@@ -108,23 +109,35 @@ Execute image normalization within the neural net.
 ----
 **Layer 4: Fully Connected.** 120 outputs.
 
-** Elu Activation.** 
+**ELU Activation.** 
 
 **Layer 5: Fully Connected.** 84 outputs.
 
-**Relu Activation.**
+**ELU Activation.**
 
 ----
 
 ### Output
-**Predicted Anlge** Steering Angle Value
+**Predicted Angle.** Steering Angle Value
 
 ## Training
+To train the model I chose the following parameters:
+
+1. Learning Rate: 0.001
+2. Epochs: 10
+3. Loss Function: Mean square error - since our ouput is a single numeric value
+4. Batch size: 128
+
+I refrained from using python generator since the amount of data required to train the network successfuly was small and I did not require data augmentation. I am aware of it's usefulness in memory constraint and real time applications.
+
+I was able to train the network on Laptop's CPU. Each training epoch took approximately 15 seconds for a **total training time of ~2.5 minutes**. Training the NVidia network for 10 epochs took approximately 25 minutes.
 
 ## Results
-videos soon!
+videos coming soon!
 
 ## How to run
 
-
-Thank you!
+1. Install [carnd-term1](https://github.com/udacity/CarND-Term1-Starter-Kit) conda environment
+2. Run `model.py` to train the model and produce `model.h5` and `model.json`
+3. Run `drive.py model.json` to load the neural net model and communicate with the simulator
+4. Run the simulator in Autonomous Mode!
