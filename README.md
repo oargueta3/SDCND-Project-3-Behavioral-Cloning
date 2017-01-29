@@ -2,7 +2,7 @@
 ### Overview
 The objective of this project was to develop an End-to-End Deep Learning algorithm to clone human driving behavior similar to the one presented by NVidia paper titled [End-to-End Deep Learning for Self Driving Cars](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/). An End-to-End approach only uses a neural network to determine the desired output of a system. 
 
-                          [INPUT(Center Image) -----> NEURAL NET -------> OUTPUT(Steering Angle)]
+                          INPUT(Center Image) -----> NEURAL NET -------> OUTPUT(Steering Angle)
 
 For this project images from front-facing camera mounted on a car were fed to neural network that predicted the corresponding steering angle of the a car. To achieve this, data was collected on a driving simulator that records front camera images and a corresponding steering angle. The camera images were used a training features and steering angles as training labels. The simulator contains two different tracks. Only Track 1 was used to collect training data. After training the neural network, it's performance was validated on Track 1 and the networks's ability to generalize was evaluated on Track 2. The trained network was able to succesfully drive around both tracks without ever leaving the boundaries of the road nor exhibiting 'unsafe' driving behavior.
     
@@ -30,14 +30,29 @@ Driving data was collected over 2 separate recording sessions on **TRACK 1**. Th
 
 Each data set has an associated ``driving_log.csv`` file that contains the recorded center, left, and right images file paths, throttle, steering angle, and speed. In the real word it is not safe and legally practical to simulate the off center shifts required to train a car to recuperate from such shift. To simulate such behavior the Left and Right images are used. To train the vehicle to recuperate from these we assign a correction angle, the angle required for the car to recenter on the road, to each left and right image. The correction angle was empirically selected to be 0.25, and the corresponding steering angles are calculated as follows:
 
-[left image angle = steering angle + 0.25]
-[right image angle = steering angle - 0.25]
+                                    left image angle = steering angle + 0.25
+                                    right image angle = steering angle - 0.25
 
-![Left-Center-Image](readme_images/image_1.png 
+![Left-Center-Image](readme_images/image_1.png)
               
               
-The model was succesfully trained with this data, but given the poor interface for recording (arrow keys), the data set provided by Udacity was used to train the final model as it produced better results. To compare why one data set produces better results a histogram of both data sets were plotted
+The model was succesfully trained with this data, but given the poor interface for recording (arrow keys), the data set provided by Udacity was used to train the final model as it produced better results. To compare why one data set produces better results a histogram of both data sets were plotted as seen below.
 
+
+![histogram](readme_images/histograms.png)
+
+The histogram from the Udacity data clearly resembles a normal distribution in comparison than the recorded data set. It is important to note the data recorded with a zero as steering angle was downsampled to prevent the overwhelming of such samples to bias the model to predict zero
+
+
+### Color Space Selection
+
+While tuning the architecture, different color spaces were tested by training the model for a fixed number of epochs and then evaluating their performance on the track. The net had a hard time learning to detect the road where boundaries were present, especially in gray scale. The S-channel in HSV was selected as the input color space for the neural net because the road is clearly discernable even when crossing the bridge and parts with no clear road boundaries. The different comparisons can be seen below.
+
+![color-spaces](readme_images/color_space_1.png)
+![color-spaces](readme_images/color_space_2.png)
+
+**Note**: Using the S-channel is possible because the enviroment of the simulator synthetic and therefore significantly less complex. For real world preception applications the Full HSV or YUV color space are better suited.
+    
 ## Neural Net Architecture
 
 ## Training
