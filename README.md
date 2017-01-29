@@ -137,10 +137,12 @@ I was able to train the network on a modest CPU. Each training epoch took approx
 ### Track 1
 <a href="https://www.youtube.com/embed/hQzMg0Tqdhg" target="_blank"><img src="http://img.youtube.com/vi/hQzMg0Tqdhg/0.jpg" 
 alt="Track 1" width="480" height="360" border="10" /></a>
+Click to see video!
 
 ### Track 2
 <a href="https://www.youtube.com/embed/d7NyIFlxlAc" target="_blank"><img src="http://img.youtube.com/vi/d7NyIFlxlAc/0.jpg" 
 alt="Track 2" width="480" height="360" border="10" /></a>
+Click to see video!
 
 ## How to run
 
